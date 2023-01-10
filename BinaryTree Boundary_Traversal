@@ -1,7 +1,6 @@
 
 
 // it's super clean and clear code 
-// copied 
 // loved it
 
 
@@ -90,6 +89,8 @@ void boundaryLeft(Node* root,vector<int> &res)
         if (root->right)
 
         {
+        //most important step 
+        //pehle function jaaega , triangle ki right boundary bottom right corner se hogi
 
             boundaryRight(root->right,res);
 
