@@ -1,0 +1,27 @@
+//most unique question
+
+
+
+class Solution {
+  public:
+    long long int minIncrements(vector<int> arr, int n) {
+        unordered_map<int,int> mp;
+        
+        //frequency stored
+        for(auto i:arr){
+            ++mp[i];
+        }
+        
+        long long int ans=0;
+        for(int i=1; i<n; ++i){
+            while(mp[arr[i]]>1){
+                --mp[arr[i]];
+                arr[i]=arr[i]+1;
+                ++ans;
+                ++mp[arr[i]];
+            }
+        }
+        
+        return ans;
+    }
+};
