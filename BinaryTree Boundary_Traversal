@@ -1,0 +1,143 @@
+
+
+// it's super clean and clear code 
+// copied 
+// loved it
+
+
+void boundaryLeft(Node* root,vector<int> &res)
+
+    {
+
+        if (!root) return;
+
+        
+
+        if (!root->left && !root->right)
+
+        {
+
+            return;
+
+        }
+
+        if (root->left)
+
+        {
+
+            res.push_back(root->data);
+
+            boundaryLeft(root->left,res);
+
+        }
+
+        else if (root->right)
+
+        {
+
+            res.push_back(root->data);
+
+            boundaryLeft(root->right,res);
+
+        }
+
+        return;
+
+    }
+
+    void boundaryBottom(Node* root,vector<int> &res)
+
+    {
+
+        if (!root)
+
+        {
+
+            return;
+
+        }
+
+        boundaryBottom(root->left,res);
+
+        if(!root->left && !root->right)
+
+        {
+
+            res.push_back(root->data);
+
+        }
+
+        
+
+        boundaryBottom(root->right,res);
+
+    }
+
+    void boundaryRight(Node* root,vector<int> &res)
+
+    {
+
+        if (!root) return;
+
+        if (!root->left && !root->right)
+
+        {
+
+            return;
+
+        }
+
+        if (root->right)
+
+        {
+
+            boundaryRight(root->right,res);
+
+            res.push_back(root->data);
+
+        }
+
+        else if (root->left)
+
+        {
+
+           
+
+            boundaryRight(root->left,res);
+
+            res.push_back(root->data);
+
+        }
+
+    }
+
+    vector <int> boundary(Node *root)
+
+    {
+
+        //Your code here
+
+        vector<int> res;
+
+        if (!root->left && !root->right)
+
+        {
+
+            res.push_back(root->data);
+
+            return res;
+
+        }
+
+        res.push_back(root->data);
+
+        boundaryLeft(root->left,res);
+
+        boundaryBottom(root,res);
+
+        boundaryRight(root->right,res);
+
+        return res;
+
+    }
+
