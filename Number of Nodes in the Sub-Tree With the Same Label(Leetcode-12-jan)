@@ -1,0 +1,50 @@
+/*
+
+The first solution that came to mind is just brute force by looping through each node (x) and calling a DFS from that node with its label and 
+comparing each node with the label then returning the number of appearances as an answer for the node (x),
+regardless of time limits the problem was that tree is an undirected graph so instead of going downwards from the node (x) to its subtree,
+it goes up to its parent (y) - as undirect graph node (x) is a child of (y) and (y) is a child of (x) - which cause a wrong answer.
+So we need to make sure we are going downwards from the root to consider the solution of node (x) is in its subtree to achieve that we will:-
+
+start our DFS from the root (node 0) and calculate a frequency table by its children
+call DFS with children all the way downwards
+the answer of leaf nodes will equal the frequency of the label on its table + 1 'its own appearance
+return the frequency table to the parent
+parent's frequency table = parent's frequency table + its child frequency table
+after there are no more children, now the parent has all the appearances of its own subtree
+the answer of the node = frequancy[its label] + 1
+by the end of our DFS we will have the answer vector
+
+
+*/
+
+
+
+
+vector<int> dfs(int s,vector<vector<int>>& adj,vector<bool>& visited,string& labs,vector<int>& ans){
+    visited[s]=true;
+    vector<int>freq(26,0);//node frequency table
+    for(auto child:adj[s]){
+        if(!visited[child]){
+            freq[labs[child]-'a']++;//children appearance
+            vector<int>get;
+            get=dfs(child,adj,visited,labs,ans);//receive child freq table
+            for(int i=0;i<26;i++)freq[i]+=get[i];//combine tables
+        }
+    }
+    
+    ans[s]=freq[labs[s]-'a'] + 1;// +1 for its own appearance
+    return freq;//return freq table to parent
+}
+vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels) {
+    vector<vector<int>>adj(n);
+    vector<bool>visited(n);
+    vector<int>ans(n);
+    
+    for(int i=0;i<n-1;i++){
+        adj[edges[i][0]].push_back(edges[i][1]);
+        adj[edges[i][1]].push_back(edges[i][0]);
+    }
+    dfs(0,adj,visited,labels,ans);
+    return ans;
+}
