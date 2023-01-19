@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int> sums(k, 0);
+        sums[0]++;
+        int cnt = 0;
+        int currSum = 0;
+        for(int i = 0; i<n; i++) {
+            currSum = (currSum + nums[i]%k + k)%k;
+            cnt += sums[currSum];
+            sums[currSum]++;
+        }
+        return cnt;
+    }
+};
+
+
+//using hash_map
+/*
+
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& a, int k) {
+        int n=a.size();
+        if(n==0)return 0;
+        int count=0,i=0,cur_sum=0;
+        unordered_map<int,int> mp;
+        mp[0]=1; //sum==0 and it's frequency is 1
+        while(i<n){
+            cur_sum+=a[i++];
+            int rem=(cur_sum%k+k)%k;
+            //if(rem<0) rem+=k;
+            if(mp.find(rem)!=mp.end())
+                //koi mil gya
+                count+=mp[rem];
+            mp[rem]++;
+            
+        }
+        return count;
+    }
+};
+
+*/
