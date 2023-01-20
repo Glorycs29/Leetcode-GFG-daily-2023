@@ -1,0 +1,39 @@
+class Solution
+{
+  public:
+  int maxWeightCell(int n, vector<int> edge)
+  {
+      map<int,int> wt;
+      int i=0;
+      for(i;i<n;i++){
+          if(edge[i]!=-1){
+              wt[edge[i]]+=i;
+          }
+          
+          //cout<<"wt of idx "<<i<<" : "<<wt[edge[i]]<<"\n";
+      }
+      
+      int maxi=INT_MIN;
+      int maxidx=0;
+      for(auto wts:wt){
+          if(maxi<=wts.second){
+          maxi=max(maxi,wts.second);
+          maxidx=wts.first;
+          }
+          
+      }
+      //cout<<maxi<<" "<<maxidx<<"\n ";
+    //   for(auto wts:wt){
+    //       cout<<wts.first<<" , "<<wts.second<<"\n";
+          
+     // }
+      
+      
+      
+      return  maxidx;
+  }
+};
+
+
+
+// link: https://practice.geeksforgeeks.org/problems/b64485d3994958cca8748991bb58668204b3e4c0/1
