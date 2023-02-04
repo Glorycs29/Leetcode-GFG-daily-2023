@@ -58,3 +58,5 @@ public:
 //     }
 
 // };
+
+// https://leetcode.com/problems/permutation-in-string/solutions/1762469/c-sliding-window-optimized-well-explained/?orderBy=most_votes
